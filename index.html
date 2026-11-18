@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>청렴·안전 신고 안내</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="사천시시설관리공단 청렴·안전 신고 창구와 절차, 신고자 보호 안내">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* 레이아웃: 휴대전화 한 손 조작 기준. 질문 2개(누구·무슨 일) → 상황별 안내 카드 → 펼침 상세 */
+:root{
+  --bg:#F4F6F5; --surface:#FFFFFF; --sunk:#EAEFED; --ink:#13241F; --muted:#56675F; --line:#D2DCD7;
+  --accent:#145C4A; --accent-ink:#FFFFFF; --accent-soft:#E1EFEA;
+  --warn:#94590A; --warn-soft:#FBF0DC; --bad:#A8322A; --bad-soft:#FAE5E2; --ok:#1F6E3E; --ok-soft:#E3F1E8;
+  --font:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1714; --surface:#16211D; --sunk:#1C2A25; --ink:#E3ECE8; --muted:#97A9A1; --line:#2C3C36;
+  --accent:#6CC3A8; --accent-ink:#0A201A; --accent-soft:#17342B;
+  --warn:#E3A954; --warn-soft:#382A12; --bad:#F08A80; --bad-soft:#3C1C19; --ok:#6ACB8E; --ok-soft:#163222; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1714; --surface:#16211D; --sunk:#1C2A25; --ink:#E3ECE8; --muted:#97A9A1; --line:#2C3C36;
+  --accent:#6CC3A8; --accent-ink:#0A201A; --accent-soft:#17342B;
+  --warn:#E3A954; --warn-soft:#382A12; --bad:#F08A80; --bad-soft:#3C1C19; --ok:#6ACB8E; --ok-soft:#163222; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{margin:0;line-height:1.3;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent)}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+
+header.top{background:var(--accent);color:var(--accent-ink);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:22px max(16px,env(safe-area-inset-left,0px)) 24px}
+header.top .in{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
+header.top .org{font-size:.85rem;opacity:.85;font-weight:500}
+header.top h1{font-size:1.65rem;font-weight:700;letter-spacing:-.01em}
+header.top p{font-size:.95rem;opacity:.92}
+
+.draft{border:1px dashed var(--warn);background:var(--warn-soft);border-radius:var(--r);padding:10px 14px;font-size:.88rem}
+.search{position:relative}
+.search input{width:100%;font:inherit;font-size:1rem;padding:13px 14px 13px 42px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.search input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--muted)}
+
+.q{display:flex;flex-direction:column;gap:10px}
+.q h2{font-size:1.15rem;font-weight:700}
+.q .step{font-size:.8rem;color:var(--accent);font-weight:700;letter-spacing:.04em}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.who button{font:inherit;font-weight:600;padding:12px 6px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.who button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:480px){.cats{grid-template-columns:minmax(0,1fr)}}
+.cat{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;text-align:left;font:inherit;padding:14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.cat:hover{border-color:var(--accent)}
+.cat:focus-visible,.who button:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.cat .ic{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
+.cat .ic svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cat b{display:block;font-size:1.02rem}
+.cat span{display:block;font-size:.86rem;color:var(--muted);margin-top:2px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font-size:1.1rem}
+.chan{display:flex;flex-direction:column;gap:8px}
+.chan .row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;font-size:.95rem;align-items:baseline}
+.chan .row dt{color:var(--muted);font-size:.86rem}
+.chan .row dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.todo{display:inline-block;background:var(--warn-soft);color:var(--warn);border:1px dashed var(--warn);border-radius:6px;padding:0 6px;font-size:.85rem;font-weight:600}
+.tel{font-weight:700;font-size:1.05rem;letter-spacing:.02em}
+
+/* 상세 */
+.back{align-self:flex-start;font:inherit;font-weight:600;border:0;background:none;color:var(--accent);padding:6px 0;cursor:pointer}
+.dhead{display:flex;flex-direction:column;gap:6px}
+.dhead h1{font-size:1.45rem}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.78rem;font-weight:600;border-radius:999px;padding:2px 10px;background:var(--sunk);color:var(--muted)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+details+details{margin-top:0}
+summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;font-size:1.02rem;display:flex;justify-content:space-between;gap:10px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);flex:none;margin-right:4px}
+details[open] summary::after{transform:rotate(-135deg)}
+details .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;font-size:.96rem}
+details ul,details ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;background:var(--bg)}
+.card h3{font-size:1rem}
+.card .k{font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.03em}
+.quote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 12px;border-radius:0 8px 8px 0;font-size:.92rem}
+.quote cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted);margin-top:4px}
+.caution{background:var(--bad-soft);border:1px solid var(--bad);border-radius:8px;padding:10px 12px;font-size:.92rem}
+.btn{display:inline-flex;align-items:center;gap:6px;font:inherit;font-weight:600;padding:10px 14px;border-radius:8px;background:var(--accent);color:var(--accent-ink);text-decoration:none;border:0;cursor:pointer}
+.btn.line{background:var(--surface);color:var(--accent);border:1px solid var(--accent)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+#homeBody{display:flex;flex-direction:column;gap:22px}
+.hits{display:flex;flex-direction:column;gap:8px}
+.hit{display:block;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.hit b{display:block}
+.hit span{font-size:.86rem;color:var(--muted)}
+mark{background:var(--warn-soft);color:inherit;border-radius:3px;padding:0 2px}
+footer{font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
+@media (prefers-reduced-motion:no-preference){.cat,.who button{transition:border-color .15s,background .15s}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <p class="org" id="orgName">사천시시설관리공단</p>
+  <h1>청렴·안전 신고 안내</h1>
+  <p>부패, 부정청탁, 갑질, 안전 위험을 어디에 어떻게 알리는지 안내합니다.</p>
+</div></header>
+
+<main class="wrap" id="app" style="margin-top:20px"></main>
+
+<script>
+/* =========================================================
+   1) 공단 내부 신고 창구 정보: 확정되면 빈칸('')을 채우세요.
+      빈칸은 화면에 "확인 필요"로 표시됩니다.
+   ========================================================= */
+var ORG={
+  name:'사천시시설관리공단',
+  dept:'안전감사팀',
+  tel:'055-831-7215',                      // 대표 신고 연락처
+  telAll:'055-831-7211, 7212, 7215',       // 인권침해 신고 안내 게시 번호
+  fax:'0507-489-4020',
+  email:'alcualcu3874@scfmc.or.kr',
+  visit:'경상남도 사천시 사천대로 20(대방동) 2층 안전감사팀',
+  safetyTel:'055-831-7214',                // 안전감사팀 재난안전·산업안전보건 담당
+  anonymous:'공단은 외부 익명신고 서비스를 사용하지 않습니다. 홈페이지 신고 게시판과 전화로 접수하며, 부조리신고 게시판의 글은 비공개로 게시됩니다.',
+  result:'',                               // 처리 결과 통지 방법 (확정 문구가 있으면 입력)
+  updated:'2026-11-18'
+};
+/* 공단 홈페이지 신고 창구 (2026.11.18. 홈페이지 화면 기준). url이 없으면 메뉴 경로만 표시 */
+var HOME='https://www.scfmc.or.kr';
+var BOARDS={
+  absurd:{label:'부조리신고',url:HOME+'/ethics/absurdity',path:'윤리경영 > 신고(상담)센터'},
+  gapjil:{label:'갑질 피해 신고·지원 센터',path:'윤리경영 > 신고(상담)센터'},
+  sexual:{label:'성폭력 성희롱 사이버신고센터',path:'윤리경영 > 신고(상담)센터'},
+  subcon:{label:'불법하도급 신고센터',path:'윤리경영 > 신고(상담)센터'},
+  human:{label:'인권침해 신고 안내',url:HOME+'/ethics2/human_report',path:'윤리경영 > 인권경영'},
+  safety:{label:'안전 신문고',url:HOME+'/m_notify/bd2',path:'윤리경영 > 안전경영'},
+  voice:{label:'고객의소리',url:HOME+'/participation/board',path:'참여마당'}
+};
+
+/* 2) 외부 신고 기관 (공개 안내 기준, 2026.11.18. 확인) */
+var EXT={
+  acrc:{name:'국민권익위원회',rows:[['온라인','청렴포털 <a href="https://www.clean.go.kr" target="_blank" rel="noopener">www.clean.go.kr</a>'],['전화 상담','국번 없이 <span class="tel">1398</span> (부패·공익신고 상담)'],['민원 상담','정부민원안내콜센터 국번 없이 <span class="tel">110</span>']]},
+  moel:{name:'고용노동부',rows:[['전화 상담','고객상담센터 국번 없이 <span class="tel">1350</span>'],['온라인','민원마당 <a href="https://minwon.moel.go.kr" target="_blank" rel="noopener">minwon.moel.go.kr</a> (진정 제기)']]},
+  safety:{name:'안전신문고 (행정안전부)',rows:[['온라인','<a href="https://www.safetyreport.go.kr" target="_blank" rel="noopener">www.safetyreport.go.kr</a> 또는 안전신문고 앱'],['방법','위험 장소의 사진·동영상과 위치를 첨부해 신고']]}
+};
+
+function law(name,jo){return 'https://www.law.go.kr/'+encodeURI('법령/'+name.replace(/\s/g,'')+'/'+jo)}
+
+/* 3) 상황별 안내 데이터. who: staff(직원) citizen(시민·이용객) vendor(협력업체) */
+var CATS=[
+ {id:'gift',icon:'gift',kw:'뇌물 선물 접대 청탁금지법 김영란법',title:'금품·향응, 부정청탁',who:['staff','citizen','vendor'],
+  summary:'공단 직원이 금품이나 향응을 받거나 요구한 경우, 직원에게 부정한 청탁을 한 경우',
+  examples:['계약·인허가·시설 이용 편의를 대가로 금품이나 향응을 주고받은 경우','법령을 위반해 직무를 처리해 달라는 청탁을 받거나 본 경우'],
+  channels:['org','acrc'],boards:['absurd'],also:'감사원 또는 수사기관에도 신고할 수 있습니다.',
+  prepare:['신고자 인적사항','신고의 취지·이유·내용을 적고 서명한 문서','신고 대상과 증거'],prepareBasis:'청탁금지법 제13조제3항',
+  protect:'법에 따른 신고자는 보호와 보상 대상이 됩니다. 단, 아래 "주의할 점"에 해당하면 제외됩니다.',
+  caution:'신고 내용이 거짓임을 알았거나 알 수 있었는데도 신고한 경우, 신고와 관련해 금품이나 근무상 특혜를 요구한 경우, 그 밖에 부정한 목적으로 신고한 경우에는 법에 따른 보호와 보상을 받지 못합니다.',cautionBasis:'청탁금지법 제13조제2항',
+  laws:[{n:'부정청탁 및 금품등 수수의 금지에 관한 법률',jo:'제13조',t:'누구든지 이 법의 위반행위가 발생하였거나 발생하고 있다는 사실을 알게 된 경우에는 다음 각 호의 어느 하나에 해당하는 기관에 신고할 수 있다. 1. 이 법의 위반행위가 발생한 공공기관 또는 그 감독기관 2. 감사원 또는 수사기관 3. 국민권익위원회'}]},
+ {id:'conflict',icon:'scale',kw:'가족 친척 사적이해관계 이해충돌방지법',title:'이해충돌',who:['staff','citizen','vendor'],
+  summary:'직원이 자신이나 가족과 이해관계가 있는 업무를 처리하는 등 이해충돌방지법을 위반한 경우',
+  examples:['직원이 가족이 운영하는 업체와 계약 업무를 처리한 경우','직무상 알게 된 비밀을 이용해 이익을 얻은 경우'],
+  channels:['org','acrc'],boards:['absurd'],also:'감사원 또는 수사기관에도 신고할 수 있습니다.',
+  prepare:['신고자 인적사항','신고의 취지·이유·내용을 적고 서명한 문서','신고 대상과 증거'],prepareBasis:'이해충돌방지법 제18조제3항',
+  protect:'법에 따른 신고자는 보호와 보상 대상이 됩니다. 단, 아래 "주의할 점"에 해당하면 제외됩니다.',
+  caution:'거짓임을 알았거나 알 수 있었는데도 한 신고, 금품이나 근로관계상 특혜를 요구한 신고, 부정한 목적의 신고는 법에 따른 보호와 보상을 받지 못합니다.',cautionBasis:'이해충돌방지법 제18조제2항',
+  laws:[{n:'공직자의 이해충돌 방지법',jo:'제18조',t:'누구든지 이 법의 위반행위가 발생하였거나 발생하고 있다는 사실을 알게 된 경우에는 다음 각 호의 어느 하나에 해당하는 기관에 신고할 수 있다. 1. 이 법의 위반행위가 발생한 공공기관 또는 그 감독기관 2. 감사원 또는 수사기관 3. 국민권익위원회'}]},
+ {id:'corrupt',icon:'alert',kw:'익명 횡령 예산 특혜 비리',title:'부패행위·예산 부정 사용',who:['staff','citizen','vendor'],
+  summary:'직원이 권한을 남용하거나 법령을 위반해 이익을 얻은 경우, 공단 예산과 재산에 손해를 끼친 경우',
+  examples:['계약 과정에서 특정 업체에 부당한 이익을 준 경우','공단 예산이나 물품을 사적으로 사용한 경우','공단 발주 공사의 불법하도급'],
+  channels:['org','acrc'],boards:['absurd','subcon'],
+  prepare:['언제, 누가, 무엇을 했는지 구체적인 사실','확인할 수 있는 자료(문서, 사진 등)'],prepareBasis:'',
+  anonymousNote:'신원 노출이 걱정되면 변호사를 선임해 본인 이름 대신 변호사 이름으로 국민권익위원회에 신고할 수 있습니다(비실명 대리신고).',anonymousBasis:'부패방지권익위법 제58조의2',
+  protect:'누구든지 신고나 관련 진술·자료 제출을 이유로 신고자에게 불이익조치를 할 수 없고, 신고를 방해하거나 취소하도록 강요할 수 없습니다.',protectBasis:'부패방지권익위법 제62조',
+  laws:[{n:'부패방지 및 국민권익위원회의 설치와 운영에 관한 법률',jo:'제55조',t:'누구든지 부패행위를 알게 된 때에는 이를 위원회에 신고할 수 있다.'},
+        {n:'부패방지 및 국민권익위원회의 설치와 운영에 관한 법률',jo:'제62조',t:'누구든지 신고자에게 신고나 이와 관련한 진술, 자료 제출 등을 한 이유로 불이익조치를 하여서는 아니 된다.'}]},
+ {id:'bully',icon:'users',kw:'갑질 폭언 욕설 모욕 차별 협박 따돌림 괴롭힘 인권',title:'갑질·괴롭힘·인권침해',who:['staff','citizen','vendor'],
+  summary:'폭언, 모욕, 차별, 협박 등 인권침해나 지위·관계의 우위를 이용한 부당한 지시와 대우를 받은 경우',
+  examples:['임직원 및 이해관계자에 대한 폭언, 모욕, 차별, 협박 등 신체적·정신적 인권침해 행위','직무상 지위 또는 관계의 우위를 이용한 부당한 지시, 불합리한 대우 등 인격권 침해 행위','기타 관계 법령 및 공단 인권경영 기준에 반하는 인권침해 행위'],examplesBasis:'공단 홈페이지 「인권침해 신고 안내」',
+  channels:['org','moel'],boards:['gapjil','human'],
+  also:'고용노동부 신고는 공단 직원(근로자)의 직장 내 괴롭힘에 해당합니다.',
+  steps:['신고 및 접수','위원회 상정','심의','결정','시정과 징계'],stepsBasis:'공단 홈페이지 「인권침해 신고 안내」: 위원회는 신고내용에 대한 사실 확인 및 조사를 거쳐 인권침해 여부를 결정합니다.',
+  staffSteps:['누구든지 괴롭힘 사실을 알게 되면 사용자(공단)에 신고할 수 있습니다.','공단은 신고를 받으면 지체 없이 객관적으로 조사해야 합니다.','조사 기간에 피해 근로자 보호가 필요하면 근무장소 변경, 유급휴가 등 조치를 하되, 피해 근로자의 의사에 반해서는 안 됩니다.','괴롭힘이 확인되면 행위자에게 징계 등 필요한 조치를 하며, 그 전에 피해 근로자의 의견을 듣습니다.'],staffStepsBasis:'근로기준법 제76조의3제1항~제5항',
+  prepare:['일시, 장소, 행위 내용을 적은 기록','메시지, 녹음, 목격자 등 확인할 수 있는 자료'],prepareBasis:'',
+  protect:'공단은 직장 내 괴롭힘을 신고한 근로자와 피해 근로자에게 해고나 그 밖의 불리한 처우를 할 수 없습니다. 조사 참여자는 조사 중 알게 된 비밀을 피해 근로자의 의사에 반해 누설할 수 없습니다.',protectBasis:'근로기준법 제76조의3제6항·제7항',
+  laws:[{n:'근로기준법',jo:'제76조의2',t:'사용자 또는 근로자는 직장에서의 지위 또는 관계 등의 우위를 이용하여 업무상 적정범위를 넘어 다른 근로자에게 신체적ㆍ정신적 고통을 주거나 근무환경을 악화시키는 행위(이하 "직장 내 괴롭힘"이라 한다)를 하여서는 아니 된다.'},
+        {n:'근로기준법',jo:'제76조의3',t:'① 누구든지 직장 내 괴롭힘 발생 사실을 알게 된 경우 그 사실을 사용자에게 신고할 수 있다.'}]},
+ {id:'sexual',icon:'hand',kw:'성희롱 성폭력 성추행',title:'성희롱·성폭력',who:['staff','citizen','vendor'],
+  summary:'직장 내 성희롱이나 성폭력 피해를 입었거나 그 사실을 알게 된 경우',
+  examples:['업무 관련 성적 언동으로 성적 굴욕감이나 혐오감을 느낀 경우','성적 요구에 따르지 않았다는 이유로 불이익을 받은 경우'],
+  urgent:'성폭력 등 범죄 피해가 진행 중이면 먼저 112에 신고하세요.',
+  channels:['org','moel'],boards:['sexual'],
+  staffSteps:['누구든지 직장 내 성희롱 발생 사실을 알게 되면 사업주(공단)에 신고할 수 있습니다.','공단은 지체 없이 사실 확인 조사를 하며, 피해자가 조사 과정에서 성적 수치심 등을 느끼지 않도록 해야 합니다.','조사 기간에 필요하면 근무장소 변경, 유급휴가 등 보호 조치를 하되, 피해자의 의사에 반해서는 안 됩니다.','성희롱이 확인되면 행위자에게 징계 등 필요한 조치를 하며, 그 전에 피해자의 의견을 듣습니다.'],staffStepsBasis:'남녀고용평등법 제14조제1항~제5항',
+  prepare:['일시, 장소, 행위 내용을 적은 기록','메시지, 녹음, 목격자 등 확인할 수 있는 자료'],prepareBasis:'',
+  protect:'공단은 성희롱 발생 사실을 신고한 근로자와 피해 근로자에게 파면·해고, 부당한 인사조치, 평가·임금 차별, 교육훈련 제한, 따돌림 방치 등 불리한 처우를 할 수 없습니다. 조사 참여자는 조사 중 알게 된 비밀을 피해자의 의사에 반해 누설할 수 없습니다.',protectBasis:'남녀고용평등법 제14조제6항·제7항',
+  laws:[{n:'남녀고용평등과 일ㆍ가정 양립 지원에 관한 법률',jo:'제14조',t:'① 누구든지 직장 내 성희롱 발생 사실을 알게 된 경우 그 사실을 해당 사업주에게 신고할 수 있다. ② 사업주는 제1항에 따른 신고를 받거나 직장 내 성희롱 발생 사실을 알게 된 경우에는 지체 없이 그 사실 확인을 위한 조사를 하여야 한다. …'}]},
+ {id:'safety',icon:'shield',kw:'파손 사고 위험 시설 산업안전 중대재해',title:'안전 위험',who:['staff','citizen','vendor'],
+  summary:'공단 시설에서 사고 위험을 발견한 경우, 일터에서 산업안전보건법 위반을 발견한 경우',
+  examples:['수영장·체육센터·케이블카·주차장 시설의 파손이나 위험 요인','작업장의 안전조치 미비'],
+  channels:['orgSafety','safety','moelSafety'],boards:['safety'],
+  prepare:['위험 장소와 위치','사진이나 동영상','발견 일시'],prepareBasis:'',
+  urgent:'사람이 다쳤거나 화재 등 긴급 상황이면 먼저 119에 신고하세요.',
+  protect:'근로자가 산업안전보건법 위반 사실을 고용노동부에 신고했다는 이유로 사업주는 해고나 그 밖의 불리한 처우를 할 수 없습니다.',protectBasis:'산업안전보건법 제157조제3항',
+  laws:[{n:'산업안전보건법',jo:'제157조',t:'① 사업장에서 이 법 또는 이 법에 따른 명령을 위반한 사실이 있으면 근로자는 그 사실을 고용노동부장관 또는 근로감독관에게 신고할 수 있다. ③ 사업주는 제1항에 따른 신고를 이유로 해당 근로자에 대하여 해고나 그 밖의 불리한 처우를 해서는 아니 된다.'}]},
+ {id:'public',icon:'globe',kw:'환경 오염 소비자 공익신고',title:'공익침해 (환경·안전·소비자 등)',who:['staff','citizen','vendor'],
+  summary:'국민의 건강과 안전, 환경, 소비자 이익 등을 침해하는 행위를 알게 된 경우',
+  examples:['오염물질 무단 배출 등 환경 관련 법률 위반','이용객 안전을 해치는 법률 위반'],
+  channels:['org','acrc'],boards:['absurd'],also:'해당 행위를 감독하는 행정기관이나 수사기관에도 신고할 수 있습니다.',
+  scope:'공익신고 대상이 되는 행위의 범위는 공익신고자 보호법 제2조와 별표에 정해진 법률 위반으로 한정됩니다. 해당 여부가 애매하면 국민권익위원회 1398에 먼저 상담하세요.',
+  prepare:['언제, 누가, 무엇을 했는지 구체적인 사실','확인할 수 있는 자료'],prepareBasis:'',
+  protect:'누구든지 공익신고 등을 이유로 공익신고자에게 불이익조치를 할 수 없고, 신고를 방해하거나 취소하도록 강요할 수 없습니다.',protectBasis:'공익신고자 보호법 제15조',
+  laws:[{n:'공익신고자 보호법',jo:'제6조',t:'누구든지 공익침해행위가 발생하였거나 발생할 우려가 있다고 인정하는 경우에는 다음 각 호의 어느 하나에 해당하는 자에게 공익신고를 할 수 있다. 1. 공익침해행위를 하는 사람이나 기관ㆍ단체ㆍ기업 등의 대표자 또는 사용자 2. 조사기관 3. 수사기관 4. 위원회 …'},
+        {n:'공익신고자 보호법',jo:'제15조',t:'① 누구든지 공익신고자등에게 공익신고등을 이유로 불이익조치를 하여서는 아니 된다.'}]}
+];
+
+var FAQ=[
+ {q:'익명으로 신고할 수 있나요?',a:function(){return '<p>부패행위는 변호사를 통해 본인 이름 없이 국민권익위원회에 신고할 수 있습니다(비실명 대리신고, 부패방지권익위법 제58조의2).</p><p>청탁금지법·이해충돌방지법 위반 신고는 신고자 인적사항을 적은 서명 문서를 내야 합니다(각 법 제13조제3항, 제18조제3항).</p><p>공단 내부 신고: '+esc(ORG.anonymous)+'</p>'}},
+ {q:'신고하면 불이익을 받지 않나요?',a:function(){return '<p>부패신고, 공익신고, 직장 내 괴롭힘·성희롱 신고, 산업안전보건법 위반 신고를 이유로 한 불이익조치는 각 법률로 금지되어 있습니다. 상황별 안내의 "신고자 보호"에서 근거 조항을 확인하세요.</p>'}},
+ {q:'처리 결과는 어떻게 알 수 있나요?',a:function(){return '<p>공단 내부 신고: '+(ORG.result?esc(ORG.result):'처리 결과 통지 방법은 안전감사팀('+esc(ORG.tel)+')에 문의하세요.')+'</p><p>외부 기관 신고는 해당 기관의 안내를 따릅니다.</p>'}},
+ {q:'사실인지 확실하지 않아도 신고할 수 있나요?',a:function(){return '<p>확인할 수 있는 사실과 자료를 바탕으로 신고하면 됩니다. 다만 거짓임을 알면서 한 신고나 부정한 목적의 신고는 법에 따른 보호를 받지 못합니다(청탁금지법 제13조제2항 등). 판단이 어려우면 국민권익위원회 1398에 먼저 상담할 수 있습니다.</p>'}}
+];
+
+/* ---------- 화면 ---------- */
+var ICONS={
+ gift:'<path d="M3 9h18v4H3zM5 13v8h14v-8M12 9v12M12 9c-2-4-6-4-6-1.5S10 9 12 9zM12 9c2-4 6-4 6-1.5S14 9 12 9z"/>',
+ scale:'<path d="M12 3v18M5 21h14M6 7l-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0zM6 7h12"/>',
+ alert:'<path d="M12 3l9 17H3zM12 10v4M12 17v.5"/>',
+ users:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 4.5a3 3 0 0 1 0 6M18 14c2 .7 3 2.8 3 6"/>',
+ shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+ hand:'<path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/>',
+ globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>'
+};
+var WHO={all:'전체',staff:'공단 직원',citizen:'시민·이용객',vendor:'협력업체'};
+var state={who:'all',q:''};
+try{state.who=localStorage.getItem('irg-who')||'all'}catch(e){}
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function val(v,label){return v?esc(v):'<span class="todo">확인 필요: '+esc(label)+'</span>'}
+function missing(){return false}
+
+function boardLinks(keys){return (keys||[]).map(function(k){var b=BOARDS[k];return b.url?'<a href="'+b.url+'" target="_blank" rel="noopener">'+esc(b.label)+'</a>':esc(b.label)+' <span class="muted small">(홈페이지 '+esc(b.path)+')</span>'}).join('<br>')}
+function orgBlock(kind,boards){
+  var rows=kind==='orgSafety'
+    ?[['담당','안전감사팀 (재난안전·산업안전보건)'],['전화','<a class="tel" href="tel:'+ORG.safetyTel+'">'+esc(ORG.safetyTel)+'</a>'],['홈페이지',boardLinks(boards||['safety'])]]
+    :[['접수 부서',esc(ORG.dept)],['전화','<a class="tel" href="tel:'+ORG.tel+'">'+esc(ORG.tel)+'</a><br><span class="small muted">'+esc(ORG.telAll)+'</span>'],['홈페이지',boardLinks(boards||['absurd'])],['이메일',esc(ORG.email)],['팩스',esc(ORG.fax)],['방문',esc(ORG.visit)]];
+  return chanCard('공단 내부','사천시시설관리공단',rows);
+}
+function chanCard(k,name,rows){return '<div class="card"><span class="k">'+k+'</span><h3>'+esc(name)+'</h3><dl class="chan">'+rows.map(function(r){return '<div class="row"><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>'}).join('')+'</dl></div>'}
+var cur=null;
+function chanHtml(id){
+  if(id==='org'||id==='orgSafety')return orgBlock(id,cur&&cur.boards);
+  if(id==='moelSafety')return chanCard('외부 기관 · 직원','고용노동부 (산업안전보건법 위반)',EXT.moel.rows);
+  var e=EXT[id];return chanCard('외부 기관',e.name,e.rows);
+}
+
+function renderHome(){
+  var list=CATS.filter(function(c){return state.who==='all'||c.who.indexOf(state.who)>=0});
+  var h='';
+  if(missing())h+='<p class="draft"><b>시안</b> · 공단 내부 신고 창구 정보가 확정되지 않았습니다. "확인 필요" 표시 항목을 채운 뒤 게시하세요.</p>';
+  h+='<label class="search" for="q"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="예: 금품, 괴롭힘, 시설 파손, 익명" value="'+esc(state.q)+'" aria-label="안내 검색"></label>';
+  h+='<div id="hits" class="hits"></div><div id="homeBody">';
+  h+='<section class="q"><span class="step">질문 1</span><h2>누구신가요?</h2><div class="who" role="group" aria-label="신고자 구분">'+['staff','citizen','vendor'].map(function(w){return '<button type="button" data-who="'+w+'" aria-pressed="'+(state.who===w)+'">'+WHO[w]+'</button>'}).join('')+'</div></section>';
+  h+='<section class="q"><span class="step">질문 2</span><h2>어떤 일을 알리려고 하시나요?</h2><div class="cats">'+list.map(function(c){return '<a class="cat" href="#c-'+c.id+'"><span class="ic"><svg viewBox="0 0 24 24">'+ICONS[c.icon]+'</svg></span><span><b>'+esc(c.title)+'</b><span>'+esc(c.summary)+'</span></span></a>'}).join('')+'</div>'+
+     (state.who!=='all'&&state.who!=='staff'?'<p class="small muted">공단 직원의 폭언, 차별, 부당한 대우는 "갑질·괴롭힘·인권침해"에서 안내합니다.</p>':'')+'</section>';
+  cur=null;h+='<section class="panel"><h2>공단 신고 창구</h2>'+orgBlock('org',['absurd','gapjil','sexual','human','subcon'])+chanHtml('orgSafety')+'<p class="small muted">시설 이용 불편과 건의는 <a href="'+BOARDS.voice.url+'" target="_blank" rel="noopener">고객의소리</a>를 이용하세요.</p></section>';
+  h+='<section class="q"><h2>자주 묻는 질문</h2>'+FAQ.map(function(f){return '<details><summary>'+esc(f.q)+'</summary><div class="body">'+f.a()+'</div></details>'}).join('')+'</section>';
+  h+='</div>'+foot();
+  $('app').innerHTML=h;
+  $('q').addEventListener('input',function(){state.q=this.value;renderHits()});
+  document.querySelectorAll('[data-who]').forEach(function(b){b.onclick=function(){state.who=state.who===b.dataset.who?'all':b.dataset.who;try{localStorage.setItem('irg-who',state.who)}catch(e){}renderHome()}});
+  renderHits();
+}
+function plain(c){return [c.kw||'',c.title,c.summary,(c.examples||[]).join(' '),(c.prepare||[]).join(' '),c.protect||'',c.caution||'',c.anonymousNote||'',(c.steps||[]).join(' '),(c.staffSteps||[]).join(' '),c.laws.map(function(l){return l.n+' '+l.t}).join(' ')].join(' ')}
+function renderHits(){
+  var q=state.q.trim(),box=$('hits'),body=$('homeBody');
+  if(!q){box.innerHTML='';body.hidden=false;return}
+  body.hidden=true;
+  var words=q.split(/\s+/).filter(Boolean),res=[];
+  CATS.forEach(function(c){var t=plain(c);if(words.every(function(w){return t.indexOf(w)>=0}))res.push({href:'#c-'+c.id,title:c.title,sub:snip(t,words[0])})});
+  FAQ.forEach(function(f,i){var t=f.q+' '+f.a().replace(/<[^>]+>/g,'');if(words.every(function(w){return t.indexOf(w)>=0}))res.push({href:'#faq',title:f.q,sub:'자주 묻는 질문',faq:i})});
+  box.innerHTML=res.length?res.map(function(r){return '<a class="hit" href="'+r.href+'"'+(r.faq!=null?' data-faq="'+r.faq+'"':'')+'><b>'+hl(r.title,words)+'</b><span>'+hl(r.sub,words)+'</span></a>'}).join(''):'<p class="muted">"'+esc(q)+'"에 맞는 안내가 없습니다. 다른 낱말로 찾거나 공단 신고 창구로 문의하세요.</p>';
+  box.querySelectorAll('[data-faq]').forEach(function(a){a.onclick=function(ev){ev.preventDefault();state.q='';renderHome();var d=document.querySelectorAll('details')[+a.dataset.faq];if(d){d.open=true;d.scrollIntoView({block:'center'})}}});
+}
+function snip(t,w){var i=t.indexOf(w);if(i<0)return t.slice(0,60);var s=Math.max(0,i-20);return (s?'… ':'')+t.slice(s,s+70)+' …'}
+function hl(s,words){var out=esc(s);words.forEach(function(w){var ew=esc(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');out=out.replace(new RegExp(ew,'g'),'<mark>$&</mark>')});return out}
+
+function sec(title,inner,open){return '<details'+(open?' open':'')+'><summary>'+title+'</summary><div class="body">'+inner+'</div></details>'}
+function basis(b){return b?'<p class="small muted">근거: '+esc(b)+'</p>':''}
+function renderDetail(c){
+  cur=c;
+  var h='<button type="button" class="back" id="back">← 처음으로</button>';
+  h+='<div class="dhead"><h1>'+esc(c.title)+'</h1><p>'+esc(c.summary)+'</p><div class="tagrow">'+c.who.map(function(w){return '<span class="tag">'+WHO[w]+'</span>'}).join('')+'</div></div>';
+  if(c.urgent)h+='<p class="caution"><b>'+esc(c.urgent)+'</b></p>';
+  if(missing())h+='<p class="draft"><b>시안</b> · 공단 내부 창구 정보 확인 전입니다.</p>';
+  h+=sec('이런 경우입니다','<ul>'+c.examples.map(function(e){return '<li>'+esc(e)+'</li>'}).join('')+'</ul>'+basis(c.examplesBasis)+(c.scope?'<p class="small">'+esc(c.scope)+'</p>':''),true);
+  h+=sec('신고하는 곳',c.channels.map(chanHtml).join('')+(c.also?'<p class="small">'+esc(c.also)+'</p>':''),true);
+  var st='';
+  if(c.steps)st+='<p><b>공단 처리 절차</b></p><ol>'+c.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol>'+basis(c.stepsBasis);
+  if(c.staffSteps)st+='<p><b>공단 직원(근로자)이 신고한 경우 법정 절차</b></p><ol>'+c.staffSteps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol>'+basis(c.staffStepsBasis);
+  if(st)h+=sec('신고 후 처리 절차',st,false);
+  h+=sec('신고할 때 준비할 것','<ul>'+c.prepare.map(function(e){return '<li>'+esc(e)+'</li>'}).join('')+'</ul>'+basis(c.prepareBasis)+(c.anonymousNote?'<p><b>신원 보호가 필요하면</b> '+esc(c.anonymousNote)+'</p>'+basis(c.anonymousBasis):''),false);
+  h+=sec('신고자 보호','<p>'+esc(c.protect)+'</p>'+basis(c.protectBasis),false);
+  if(c.caution)h+=sec('주의할 점','<p class="caution">'+esc(c.caution)+'</p>'+basis(c.cautionBasis),false);
+  h+=sec('근거 법령',c.laws.map(function(l){return '<div class="quote">'+esc(l.t)+'<cite>「'+esc(l.n)+'」 '+esc(l.jo)+' · <a href="'+law(l.n,l.jo)+'" target="_blank" rel="noopener">법제처 원문 보기</a></cite></div>'}).join(''),false);
+  h+=foot();
+  $('app').innerHTML=h;
+  $('back').onclick=function(){location.hash='home'};
+  window.scrollTo(0,0);
+}
+function foot(){return '<footer><p>관리 부서: '+esc(ORG.name)+' '+esc(ORG.dept)+' · 안내 확인일 '+esc(ORG.updated.replace(/-/g,'.'))+'.</p><p>공단 신고 창구는 공단 홈페이지(2026.11.18. 확인), 법령 조문은 국가법령정보 현행본(2026.11.18. 조회) 기준입니다. 법령 개정이나 기관 연락처 변경 시 해당 기관 안내가 우선합니다.</p></footer>'}
+function route(){
+  var h=(location.hash||'').slice(1);
+  if(h.indexOf('c-')===0){var c=CATS.filter(function(x){return 'c-'+x.id===h})[0];if(c){renderDetail(c);return}}
+  renderHome();
+}
+$('orgName').textContent=ORG.name;
+window.addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>
