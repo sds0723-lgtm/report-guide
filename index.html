@@ -103,6 +103,26 @@ details ul,details ol{margin:0;padding-left:20px;display:flex;flex-direction:col
 .hit b{display:block}
 .hit span{font-size:.86rem;color:var(--muted)}
 mark{background:var(--warn-soft);color:inherit;border-radius:3px;padding:0 2px}
+/* 바로 신고하기 */
+.act{background:var(--surface);border:2px solid var(--accent);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
+.act h2{font-size:1.15rem}
+.actbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.actbtns{grid-template-columns:minmax(0,1fr)}}
+.actbtns a,.actbtns button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;font:inherit;padding:12px 14px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);text-decoration:none;cursor:pointer}
+.actbtns .sec{background:var(--surface);color:var(--accent)}
+.actbtns b{font-size:1rem}
+.actbtns span{font-size:.8rem;opacity:.9}
+.compose{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:12px}
+.compose label{display:flex;flex-direction:column;gap:4px;font-size:.88rem;font-weight:600;color:var(--muted)}
+.compose input,.compose textarea,.compose select{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+.compose textarea{min-height:110px;resize:vertical}
+.compose .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.compose .two{grid-template-columns:minmax(0,1fr)}}
+.compose input:focus-visible,.compose textarea:focus-visible,.compose select:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.compose .hint{font-weight:400;font-size:.8rem}
+.privacy{font-size:.84rem;background:var(--sunk);border-radius:8px;padding:10px 12px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:.9rem;max-width:calc(100% - 32px);z-index:20}
+textarea.out{font-size:.85rem;min-height:160px}
 footer{font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:14px}
 @media (prefers-reduced-motion:no-preference){.cat,.who button{transition:border-color .15s,background .15s}}
 </style>
@@ -292,6 +312,46 @@ function renderHits(){
 function snip(t,w){var i=t.indexOf(w);if(i<0)return t.slice(0,60);var s=Math.max(0,i-20);return (s?'… ':'')+t.slice(s,s+70)+' …'}
 function hl(s,words){var out=esc(s);words.forEach(function(w){var ew=esc(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');out=out.replace(new RegExp(ew,'g'),'<mark>$&</mark>')});return out}
 
+function reportBox(c){
+  var safe=c.id==='safety',tel=safe?ORG.safetyTel:ORG.tel,keys=c.boards||['absurd'],b=BOARDS[keys[0]];
+  var boardBtn=b.url?'<a href="'+b.url+'" target="_blank" rel="noopener"><b>홈페이지로 신고</b><span>'+esc(b.label)+' 게시판 → 글쓰기</span></a>'
+    :'<a href="'+HOME+'" target="_blank" rel="noopener"><b>홈페이지로 신고</b><span>'+esc(b.path)+' > '+esc(b.label)+'</span></a>';
+  return '<section class="act" aria-labelledby="actT"><h2 id="actT">바로 신고하기</h2>'+
+   '<div class="actbtns">'+boardBtn+
+   '<a class="sec" href="tel:'+tel+'"><b>전화로 신고</b><span>'+esc(tel)+(safe?' (재난안전·산업안전보건)':' (안전감사팀)')+'</span></a>'+
+   '<button type="button" class="sec" id="openCompose" aria-expanded="false"><b>신고서 작성</b><span>이메일 보내기 또는 게시판 붙여넣기</span></button></div>'+
+   '<form class="compose" id="compose" hidden autocomplete="off">'+
+   '<p class="privacy">이 페이지는 입력한 내용을 저장하거나 서버로 보내지 않습니다. <b>이메일로 보내기</b>를 누르면 휴대전화의 이메일 앱이 열리고, 보내기는 직접 누릅니다. 사진·파일은 이메일 앱에서 첨부하세요.</p>'+
+   '<label>신고 유형<input id="f_type" value="'+esc(c.title)+'" readonly></label>'+
+   '<div class="two"><label>언제<input id="f_when" placeholder="예: 2026.11.10. 오후 3시경"></label><label>어디서<input id="f_where" placeholder="예: 실내수영장 사무실"></label></div>'+
+   '<label>누가 (신고 대상)<input id="f_who" placeholder="부서·직위·이름 등 아는 만큼"></label>'+
+   '<label>무엇을, 어떻게<textarea id="f_what" placeholder="있었던 일을 순서대로 적어 주세요"></textarea></label>'+
+   '<label>확인할 수 있는 자료<input id="f_proof" placeholder="예: 문자 메시지 캡처, 녹음, 목격자"><span class="hint">자료 자체는 이메일에 첨부하거나 게시판에 올리세요.</span></label>'+
+   '<div class="two"><label>신고자 이름<input id="f_name"></label><label>연락처<input id="f_tel" inputmode="tel"></label></div>'+
+   (c.id==='gift'||c.id==='conflict'?'<p class="hint small muted">청탁금지법·이해충돌방지법에 따른 신고는 신고자 인적사항을 적은 서명 문서가 필요합니다(각 법 제13조제3항, 제18조제3항).</p>':'<p class="hint small muted">이름과 연락처를 적으면 사실 확인과 결과 안내가 쉬워집니다.</p>')+
+   '<label>결과 안내<select id="f_reply"><option>결과 안내를 원합니다</option><option>결과 안내를 원하지 않습니다</option></select></label>'+
+   '<div class="btns"><button type="button" class="btn" id="sendMail">이메일로 보내기</button><button type="button" class="btn line" id="copyText">내용 복사 (게시판용)</button><button type="button" class="btn line" id="clearForm">지우기</button></div>'+
+   '<textarea class="out" id="outText" hidden readonly aria-label="복사할 신고 내용"></textarea>'+
+   '<p class="small muted">이메일 받는 곳: '+esc(ORG.email)+' · 이메일 앱이 열리지 않으면 "내용 복사" 후 위 주소로 보내거나 홈페이지 게시판에 붙여넣으세요.</p>'+
+   '</form></section>';
+}
+function composeText(){
+  var g=function(id){return ($(id).value||'').trim()||'-'};
+  return '[신고 유형] '+g('f_type')+'\n[언제] '+g('f_when')+'\n[어디서] '+g('f_where')+'\n[누가] '+g('f_who')+'\n[내용]\n'+g('f_what')+'\n[확인 자료] '+g('f_proof')+'\n[신고자] '+g('f_name')+' / '+g('f_tel')+'\n[결과 안내] '+$('f_reply').value+'\n\n(청렴·안전 신고 안내 페이지에서 작성)';
+}
+function bindCompose(c){
+  var f=$('compose'),o=$('openCompose');
+  o.onclick=function(){f.hidden=!f.hidden;o.setAttribute('aria-expanded',String(!f.hidden));if(!f.hidden)$('f_when').focus()};
+  f.addEventListener('submit',function(e){e.preventDefault()});
+  function ok(){if(!$('f_what').value.trim()){toast('"무엇을, 어떻게"를 적어 주세요');$('f_what').focus();return false}return true}
+  $('sendMail').onclick=function(){if(!ok())return;var sub='[신고] '+c.title+(($('f_where').value||'').trim()?' - '+$('f_where').value.trim():'');
+    location.href='mailto:'+ORG.email+'?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(composeText());toast('이메일 앱을 여는 중입니다. 내용을 확인한 뒤 보내기를 누르세요')};
+  $('copyText').onclick=function(){if(!ok())return;var t=composeText(),ta=$('outText');ta.value=t;ta.hidden=false;
+    var fb=function(){ta.focus();ta.select();toast('선택된 내용을 길게 눌러 복사하세요')};
+    try{navigator.clipboard.writeText(t).then(function(){toast('복사했습니다. 게시판 글쓰기에 붙여넣으세요')},fb)}catch(e){fb()}};
+  $('clearForm').onclick=function(){f.reset();$('f_type').value=c.title;$('outText').hidden=true;$('outText').value='';toast('입력 내용을 지웠습니다')};
+}
+function toast(m){var t=$('toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){t.hidden=true},3200)}
 function sec(title,inner,open){return '<details'+(open?' open':'')+'><summary>'+title+'</summary><div class="body">'+inner+'</div></details>'}
 function basis(b){return b?'<p class="small muted">근거: '+esc(b)+'</p>':''}
 function renderDetail(c){
@@ -300,6 +360,7 @@ function renderDetail(c){
   h+='<div class="dhead"><h1>'+esc(c.title)+'</h1><p>'+esc(c.summary)+'</p><div class="tagrow">'+c.who.map(function(w){return '<span class="tag">'+WHO[w]+'</span>'}).join('')+'</div></div>';
   if(c.urgent)h+='<p class="caution"><b>'+esc(c.urgent)+'</b></p>';
   if(missing())h+='<p class="draft"><b>시안</b> · 공단 내부 창구 정보 확인 전입니다.</p>';
+  h+=reportBox(c);
   h+=sec('이런 경우입니다','<ul>'+c.examples.map(function(e){return '<li>'+esc(e)+'</li>'}).join('')+'</ul>'+basis(c.examplesBasis)+(c.scope?'<p class="small">'+esc(c.scope)+'</p>':''),true);
   h+=sec('신고하는 곳',c.channels.map(chanHtml).join('')+(c.also?'<p class="small">'+esc(c.also)+'</p>':''),true);
   var st='';
@@ -313,6 +374,7 @@ function renderDetail(c){
   h+=foot();
   $('app').innerHTML=h;
   $('back').onclick=function(){location.hash='home'};
+  bindCompose(c);
   window.scrollTo(0,0);
 }
 function foot(){return '<footer><p>관리 부서: '+esc(ORG.name)+' '+esc(ORG.dept)+' · 안내 확인일 '+esc(ORG.updated.replace(/-/g,'.'))+'.</p><p>공단 신고 창구는 공단 홈페이지(2026.11.18. 확인), 법령 조문은 국가법령정보 현행본(2026.11.18. 조회) 기준입니다. 법령 개정이나 기관 연락처 변경 시 해당 기관 안내가 우선합니다.</p></footer>'}
